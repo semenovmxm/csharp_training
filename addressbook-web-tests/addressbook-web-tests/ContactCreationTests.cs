@@ -40,7 +40,7 @@ namespace WebAddressbookTests
         }
 
         [Test]
-        public void GroupCreationTest()
+        public void ContactCreationTest()
         {
             AccountData admin = new AccountData();
             admin.Username = "admin";
@@ -62,12 +62,13 @@ namespace WebAddressbookTests
             contact.Email2 = "G1 " + DateTime.Now;
             contact.Email3 = "G1 " + DateTime.Now;
             contact.Homepage = "G1 " + DateTime.Now;
-            contact.Bday = "10";
+            contact.Bday = "22";
             contact.Bmonth = "January";
             contact.Byear = "2000";
             contact.Aday = "10";
             contact.Amonth = "January";
             contact.Ayear = "2000";
+            contact.New_group_id = "7";
             contact.New_group = "e";
             contact.Address2 = "G1 ";
             contact.Phone2 = "9876543210";
@@ -137,24 +138,24 @@ namespace WebAddressbookTests
             driver.FindElement(By.Name("homepage")).SendKeys(contact.Homepage);
             driver.FindElement(By.Name("bday")).Click();
             new SelectElement(driver.FindElement(By.Name("bday"))).SelectByText(contact.Bday);
-            driver.FindElement(By.XPath("(.//*[normalize-space(text()) and normalize-space(.)='Birthday:'])[1]/following::option[12]")).Click();
+            driver.FindElement(By.XPath("//option[@value='" + contact.Bday +"']")).Click();
             driver.FindElement(By.Name("bmonth")).Click();
             new SelectElement(driver.FindElement(By.Name("bmonth"))).SelectByText(contact.Bmonth);
-            driver.FindElement(By.XPath("(.//*[normalize-space(text()) and normalize-space(.)='Birthday:'])[1]/following::option[35]")).Click();
+            driver.FindElement(By.XPath("//option[@value='" + contact.Bmonth + "']")).Click();
             driver.FindElement(By.Name("byear")).Click();
             driver.FindElement(By.Name("byear")).Clear();
             driver.FindElement(By.Name("byear")).SendKeys(contact.Byear);
             driver.FindElement(By.Name("aday")).Click();
             new SelectElement(driver.FindElement(By.Name("aday"))).SelectByText(contact.Aday);
-            driver.FindElement(By.XPath("(.//*[normalize-space(text()) and normalize-space(.)='Anniversary:'])[1]/following::option[14]")).Click();
+            driver.FindElement(By.XPath("(//option[@value='" + contact.Aday + "'])[2]")).Click();
             new SelectElement(driver.FindElement(By.Name("amonth"))).SelectByText(contact.Amonth);
-            driver.FindElement(By.XPath("(.//*[normalize-space(text()) and normalize-space(.)='Anniversary:'])[1]/following::option[35]")).Click();
+            driver.FindElement(By.XPath("(//option[@value='" + contact.Amonth + "'])[2]")).Click();
             driver.FindElement(By.Name("ayear")).Click();
             driver.FindElement(By.Name("ayear")).Clear();
             driver.FindElement(By.Name("ayear")).SendKeys(contact.Ayear);
             driver.FindElement(By.Name("new_group")).Click();
-            new SelectElement(driver.FindElement(By.Name("new_group"))).SelectByText(contact.New_group);
-            driver.FindElement(By.XPath("(.//*[normalize-space(text()) and normalize-space(.)='Group:'])[1]/following::option[7]")).Click();
+            //new SelectElement(driver.FindElement(By.Name("new_group"))).SelectByText(contact.New_group);
+            driver.FindElement(By.XPath("//select[5]/option[" + contact.New_group_id + "]")).Click();
             driver.FindElement(By.Name("address2")).Click();
             driver.FindElement(By.Name("address2")).Clear();
             driver.FindElement(By.Name("address2")).SendKeys(contact.Address2);

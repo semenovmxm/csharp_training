@@ -29,6 +29,7 @@ namespace WebAddressbookTests
         private string aday;
         private string amonth;
         private string ayear;
+        private string new_group_id;
         private string new_group;
         private string address2;
         private string phone2;
@@ -265,6 +266,17 @@ namespace WebAddressbookTests
             set
             {
                 ayear = value;
+            }
+        }
+        public string New_group_id
+        {
+            get
+            {
+                return new_group_id;
+            }
+            set
+            {
+                new_group_id = value;
             }
         }
         public string New_group
