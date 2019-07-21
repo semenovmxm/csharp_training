@@ -85,7 +85,7 @@ namespace WebAddressbookTests
 
         private void ReturnHomePage()
         {
-            driver.FindElement(By.XPath("(.//*[normalize-space(text()) and normalize-space(.)='Notes:'])[1]/following::input[1]")).Click();
+            driver.FindElement(By.XPath("(//input[@name='submit'])[2]")).Click();
             driver.FindElement(By.LinkText("home page")).Click();
         }
 
