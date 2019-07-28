@@ -34,6 +34,7 @@ namespace WebAddressbookTests
         private string address2;
         private string phone2;
         private string notes;
+        private string index;
 
         public ContactData() { }
 
@@ -323,6 +324,18 @@ namespace WebAddressbookTests
                 notes = value;
             }
         }
+        public string Index
+        {
+            get
+            {
+                return index;
+            }
+            set
+            {
+                index = value;
+            }
+        }
+
     }
 
     

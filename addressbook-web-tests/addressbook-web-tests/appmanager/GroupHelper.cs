@@ -14,6 +14,47 @@ namespace WebAddressbookTests
     {
         public GroupHelper(ApplicationManager manager) : base(manager) { }
 
+        public GroupHelper Create(GroupData group)
+        {
+            manager.Navigator.GoToGroupsPage();
+            InitNewGroupCreation();
+            FillGroupForm(group);
+            SubmitGroupCreation();
+            ReturnToGroupsPage();
+            return this;
+        }
+
+        public GroupHelper Modify(GroupData group)
+        {
+            manager.Navigator.GoToGroupsPage();
+            SelectGroup(group);
+            InitGroupModification();
+            FillGroupForm(group);
+            SubmitGroupModification();
+            ReturnToGroupsPage();
+            return this;
+        }
+
+        public GroupHelper Remove(GroupData group)
+        {
+            manager.Navigator.GoToGroupsPage();
+            SelectGroup(group);
+            RemoveGroup();
+            ReturnToGroupsPage();
+            return this;
+        }
+
+        public GroupHelper InitGroupModification()
+        {
+            driver.FindElement(By.Name("edit")).Click();
+            return this;
+        }
+        public GroupHelper SubmitGroupModification()
+        {
+            driver.FindElement(By.Name("update")).Click();
+            return this;
+        }
+
         #region Удаление группы
         public GroupHelper SelectGroup(GroupData group)
         {
@@ -28,15 +69,9 @@ namespace WebAddressbookTests
             driver.FindElement(By.XPath("(//input[@name='delete'])[2]")).Click();
             return this;
         }
+ 
         #endregion
-        public GroupHelper Remove(GroupData group)
-        {
-            manager.Navigator.GoToGroupsPage();
-            SelectGroup(group);
-            RemoveGroup();
-            ReturnToGroupsPage();
-            return this;
-        }
+
         #region  Создание новой группы
         public GroupHelper InitNewGroupCreation()
         {
@@ -62,16 +97,6 @@ namespace WebAddressbookTests
             return this;
         }
         #endregion
-
-        public GroupHelper Create(GroupData group)
-        {
-            manager.Navigator.GoToGroupsPage();
-            InitNewGroupCreation();
-            FillGroupForm(group);
-            SubmitGroupCreation();
-            ReturnToGroupsPage();
-            return this;
-        }
 
         public GroupHelper ReturnToGroupsPage()
         {

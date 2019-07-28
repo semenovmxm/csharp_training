@@ -8,10 +8,10 @@ using NUnit.Framework;
 namespace WebAddressbookTests
 {
     [TestFixture]
-    public class ContactCreationTests : TestBase
+    public class ContactModificationTests : TestBase
     {
         [Test]
-        public void ContactCreationTest()
+        public void ContactModificationTest()
         {
             #region ContactDataRegion
             ContactData contact = new ContactData();
@@ -41,11 +41,10 @@ namespace WebAddressbookTests
             contact.Address2 = "G1 ";
             contact.Phone2 = "9876543210";
             contact.Notes = "G1 " + DateTime.Now;
+            contact.Index = "7";
             #endregion
 
-            app.Contacts.InitNewContactCreation()
-                .FillContactForm(contact)
-                .ReturnHomePage();
+            app.Contacts.Modify(contact);
             app.Auth.Logout();
         }
     }
