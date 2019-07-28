@@ -6,12 +6,24 @@ using System.Threading.Tasks;
 
 namespace WebAddressbookTests
 {
-    class GroupData
+   public  class GroupData
     {
+        private string index;
         private string name;
         private string header;
         private string footer;
 
+        public string Index
+        {
+            get
+            {
+                return index;
+            }
+            set
+            {
+                index = value;
+            }
+        }
         public string Name
         {
             get

@@ -10,7 +10,7 @@ using OpenQA.Selenium.Support.UI;
 namespace WebAddressbookTests
 {
     [TestFixture]
-    public class ContactCreationTests
+    public class ContactCreationTests : TestBase
     {
         private IWebDriver driver;
         private StringBuilder verificationErrors;
@@ -87,6 +87,15 @@ namespace WebAddressbookTests
         {
             driver.FindElement(By.XPath("(//input[@name='submit'])[2]")).Click();
             driver.FindElement(By.LinkText("home page")).Click();
+        }
+        private void RemoveGroup()
+        {
+            driver.FindElement(By.XPath("(//input[@name='delete'])[2]")).Click();
+        }
+
+        private void SelectGroup(GroupData group)
+        {
+            driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + group.Index + "]")).Click();
         }
 
         private void FillContactForm(ContactData contact)
@@ -190,54 +199,6 @@ namespace WebAddressbookTests
         private void OpenHomePage()
         {
             driver.Navigate().GoToUrl(baseURL + "/addressbook/");
-        }
-
-        private bool IsElementPresent(By by)
-        {
-            try
-            {
-                driver.FindElement(by);
-                return true;
-            }
-            catch (NoSuchElementException)
-            {
-                return false;
-            }
-        }
-
-        private bool IsAlertPresent()
-        {
-            try
-            {
-                driver.SwitchTo().Alert();
-                return true;
-            }
-            catch (NoAlertPresentException)
-            {
-                return false;
-            }
-        }
-
-        private string CloseAlertAndGetItsText()
-        {
-            try
-            {
-                IAlert alert = driver.SwitchTo().Alert();
-                string alertText = alert.Text;
-                if (acceptNextAlert)
-                {
-                    alert.Accept();
-                }
-                else
-                {
-                    alert.Dismiss();
-                }
-                return alertText;
-            }
-            finally
-            {
-                acceptNextAlert = true;
-            }
         }
     }
 }
