@@ -9,7 +9,7 @@ using NUnit.Framework;
 namespace WebAddressbookTests
 {
     [TestFixture]
-    public class ContactRemovalTests : TestBase
+    public class ContactRemovalTests : AurhTestBase
     {
         [Test]
         public void ContactRemovalTest()
@@ -20,7 +20,6 @@ namespace WebAddressbookTests
             #endregion
 
             app.Contacts.Remove(contact);
-            app.Auth.Logout();
         }
     }
 }
