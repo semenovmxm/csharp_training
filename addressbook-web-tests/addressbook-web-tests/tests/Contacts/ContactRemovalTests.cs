@@ -16,7 +16,7 @@ namespace WebAddressbookTests
         {
             #region ContactDataRegion
             ContactData contact = new ContactData();
-            contact.Index = "1";
+            contact.Index = "10";
             #endregion
 
             app.Contacts.Remove(contact);

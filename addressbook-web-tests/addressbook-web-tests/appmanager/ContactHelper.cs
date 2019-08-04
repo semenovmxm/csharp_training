@@ -19,6 +19,7 @@ namespace WebAddressbookTests
             manager.Navigator.GoToHomePage();
             InitNewContactCreation();
             FillNewContactForm(contact);
+            SubmitContactCreation();
             ReturnHomePage();
             return this;
         }
@@ -63,7 +64,13 @@ namespace WebAddressbookTests
             driver.FindElement(By.LinkText("add new")).Click();
             return this;
         }
-        public ContactHelper FillNewContactForm(ContactData contact)
+
+        public ContactHelper SubmitContactCreation()
+        {
+            driver.FindElement(By.XPath("(//input[@name='submit'])")).Click();
+            return this;
+        }
+            public ContactHelper FillNewContactForm(ContactData contact)
         {
             FillModificationContactForm(contact);
 
