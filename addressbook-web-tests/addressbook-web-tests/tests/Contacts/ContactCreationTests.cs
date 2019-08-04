@@ -36,7 +36,7 @@ namespace WebAddressbookTests
             contact.Aday = "10";
             contact.Amonth = "January";
             contact.Ayear = "2000";
-            contact.New_group_id = "7";
+            contact.New_group_id = "1";
             contact.New_group = "e";
             contact.Address2 = "G1 ";
             contact.Phone2 = "9876543210";

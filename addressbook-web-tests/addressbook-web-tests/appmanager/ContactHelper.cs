@@ -26,6 +26,10 @@ namespace WebAddressbookTests
         public ContactHelper Modify(ContactData contact)
         {
             manager.Navigator.GoToHomePage();
+            if (!IsExistRecords())
+            {
+                Create(contact);
+            }
             GoToContactsDetailsPage();
             InitContactModification();
             FillModificationContactForm(contact);
@@ -36,6 +40,10 @@ namespace WebAddressbookTests
         public ContactHelper Remove(ContactData contact)
         {
             manager.Navigator.GoToHomePage();
+            if (!IsExistRecords())
+            {
+                Create(contact);
+            }
             SelectContact(contact);
             RemoveContact();
             CloseAlert();

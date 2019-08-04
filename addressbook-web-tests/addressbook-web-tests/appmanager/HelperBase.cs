@@ -30,6 +30,11 @@ namespace WebAddressbookTests
             }
         }
 
+        public bool IsExistRecords()
+        {
+            return IsElementPresent(By.Name("selected[]"));
+        }
+
         public bool IsElementPresent(By by)
         {
             try
