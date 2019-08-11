@@ -59,12 +59,14 @@ namespace WebAddressbookTests
             return this;
         }
 
-        public GroupHelper IfExistAnyGroup(GroupData group)
+        public GroupHelper IfExistAnyGroup()
         {
             manager.Navigator.GoToGroupsPage();
 
             if (!IsExistRecords())
             {
+                GroupData group = new GroupData();
+                group.Name = "";
                 Create(group);
             }
             return this;

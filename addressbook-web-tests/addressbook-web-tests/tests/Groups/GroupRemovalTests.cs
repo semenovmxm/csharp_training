@@ -18,14 +18,14 @@ namespace WebAddressbookTests
             group.Index = "0";
             #endregion
 
+            app.Groups.IfExistAnyGroup();
+
             List<GroupData> oldGroups = app.Groups.GetGroupList();
-            
-            app.Groups.
-                IfExistAnyGroup(group).
-                Remove(group);
+
+            app.Groups.Remove(group);
 
             List<GroupData> newGroups = app.Groups.GetGroupList();
-
+          
             oldGroups.RemoveAt(int.Parse(group.Index));
             Assert.AreEqual(oldGroups, newGroups);
         }

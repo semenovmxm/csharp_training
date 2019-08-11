@@ -15,15 +15,26 @@ namespace WebAddressbookTests
         {
             #region GroupDataRegion
             GroupData group = new GroupData();
-            group.Index = "1";
+            group.Index = "0";
             group.Name = "G1 " + DateTime.Now;
             group.Header = null; // "H1 " + DateTime.Now;
             group.Footer = null; // "F1 " + DateTime.Now;
             #endregion
 
-            app.Groups.
-                IfExistAnyGroup(group).
-                Modify(group);
+
+            app.Groups.IfExistAnyGroup();
+
+            List<GroupData> oldGroups = app.Groups.GetGroupList();
+
+            app.Groups.Modify(group);
+                        
+            List<GroupData> newGroups = app.Groups.GetGroupList();
+            oldGroups[0].Name = group.Name;
+            oldGroups.Sort();
+            newGroups.Sort();
+
+            Assert.AreEqual(oldGroups, newGroups);
+
         }
     }
 }
