@@ -26,10 +26,6 @@ namespace WebAddressbookTests
         public ContactHelper Modify(ContactData contact)
         {
             manager.Navigator.GoToHomePage();
-            if (!IsExistRecords())
-            {
-                Create(contact);
-            }
             GoToContactsDetailsPage();
             InitContactModification();
             FillModificationContactForm(contact);
@@ -37,13 +33,20 @@ namespace WebAddressbookTests
             ReturnHomePage();
             return this;
         }
-        public ContactHelper Remove(ContactData contact)
+
+        public ContactHelper IfExistAnyContact(ContactData contact)
         {
             manager.Navigator.GoToHomePage();
             if (!IsExistRecords())
             {
                 Create(contact);
             }
+            return this;
+        }
+
+        public ContactHelper Remove(ContactData contact)
+        {
+            manager.Navigator.GoToHomePage();
             SelectContact(contact);
             RemoveContact();
             CloseAlert();
@@ -82,9 +85,9 @@ namespace WebAddressbookTests
         {
             FillModificationContactForm(contact);
 
-            driver.FindElement(By.Name("new_group")).Click();
+            //driver.FindElement(By.Name("new_group")).Click();
             //new SelectElement(driver.FindElement(By.Name("new_group"))).SelectByText(contact.New_group);
-            driver.FindElement(By.XPath("//select[5]/option[" + contact.New_group_id + "]")).Click();
+            //driver.FindElement(By.XPath("//select[5]/option[" + contact.New_group_id + "]")).Click();
 
             return this;
         }

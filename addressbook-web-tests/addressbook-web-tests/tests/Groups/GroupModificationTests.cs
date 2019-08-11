@@ -21,7 +21,9 @@ namespace WebAddressbookTests
             group.Footer = null; // "F1 " + DateTime.Now;
             #endregion
 
-            app.Groups.Modify(group);
+            app.Groups.
+                IfExistAnyGroup(group).
+                Modify(group);
         }
     }
 }

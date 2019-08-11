@@ -44,7 +44,9 @@ namespace WebAddressbookTests
             contact.Index = "10";
             #endregion
 
-            app.Contacts.Modify(contact);
+            app.Contacts.
+                IfExistAnyContact(contact).
+                Modify(contact);
         }
     }
 }

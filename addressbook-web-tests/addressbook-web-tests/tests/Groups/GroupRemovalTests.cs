@@ -18,7 +18,9 @@ namespace WebAddressbookTests
             group.Index = "1";
             #endregion
 
-            app.Groups.Remove(group);            
+            app.Groups.
+                IfExistAnyGroup(group).
+                Remove(group);            
         }
 
         
