@@ -24,6 +24,19 @@ namespace WebAddressbookTests
             return this;
         }
 
+        public List<GroupData> GetGroupList()
+        {
+            manager.Navigator.GoToGroupsPage();
+            List<GroupData> groups = new List<GroupData>();
+            ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("span.group"));
+
+            foreach (IWebElement element in elements)
+            {
+                groups.Add(new GroupData(element.Text));
+            }
+            return groups;
+        }
+
         public GroupHelper Modify(GroupData group)
         {
             manager.Navigator.GoToGroupsPage();
@@ -71,7 +84,7 @@ namespace WebAddressbookTests
         #region Удаление группы
         public GroupHelper SelectGroup(GroupData group)
         {
-            driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + group.Index + "]")).Click();
+            driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + (group.Index+1) + "]")).Click();
             return this;
         }
 

@@ -20,7 +20,13 @@ namespace WebAddressbookTests
             group.Footer = "F1 " + DateTime.Now;
             #endregion
 
+            List<GroupData> oldGroups = app.Groups.GetGroupList();
+
             app.Groups.Create(group);
+
+            List<GroupData> newGroups = app.Groups.GetGroupList();
+
+            Assert.AreEqual(oldGroups.Count + 1, newGroups.Count);
         }
 
         [Test]
@@ -33,9 +39,29 @@ namespace WebAddressbookTests
             group.Footer = "";
             #endregion
 
+            List<GroupData> oldGroups = app.Groups.GetGroupList();
             app.Groups.Create(group);
+            List<GroupData> newGroups = app.Groups.GetGroupList();
+            Assert.AreEqual(oldGroups.Count + 1, newGroups.Count);
         }
 
+        [Test]
+        public void BadNameGroupCreationTest()
+        {
+            #region GroupDataRegion
+            GroupData group = new GroupData();
+            group.Name = "a'a";
+            group.Header = "";
+            group.Footer = "";
+            #endregion
 
+            List<GroupData> oldGroups = app.Groups.GetGroupList();
+            app.Groups.Create(group);
+            List<GroupData> newGroups = app.Groups.GetGroupList();
+            //Assert.AreEqual(oldGroups.Count + 1, newGroups.Count);
+
+            //verification
+            Assert.IsFalse(oldGroups.Count + 1 == newGroups.Count);
+        }
     }
 }

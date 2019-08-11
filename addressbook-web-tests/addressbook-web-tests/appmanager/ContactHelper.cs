@@ -34,20 +34,23 @@ namespace WebAddressbookTests
             return this;
         }
 
-        public ContactHelper IfExistAnyContact(ContactData contact)
+        public ContactHelper IfExistAnyContact()
         {
             manager.Navigator.GoToHomePage();
             if (!IsExistRecords())
             {
+                ContactData contact = new ContactData();
+                contact.Lastname = "";
+
                 Create(contact);
             }
             return this;
         }
 
-        public ContactHelper Remove(ContactData contact)
+        public ContactHelper Remove()
         {
             manager.Navigator.GoToHomePage();
-            SelectContact(contact);
+            SelectContact();
             RemoveContact();
             CloseAlert();
             return this;
@@ -57,6 +60,18 @@ namespace WebAddressbookTests
         {
             driver.FindElement(By.XPath("(//img[@alt='Details'])")).Click();
             return this;
+        }
+
+        public List<ContactData> GetContactList()
+        {
+            List<ContactData> contacts = new List<ContactData>();
+            manager.Navigator.GoToHomePage();
+            ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("tr"));
+            foreach(IWebElement element in elements)
+            {
+                contacts.Add(new ContactData(element.Text));
+            }
+            return contacts;
         }
 
         public ContactHelper InitContactModification()
@@ -153,10 +168,9 @@ namespace WebAddressbookTests
             driver.FindElement(By.LinkText("home page")).Click();
             return this;
         }
-        public ContactHelper SelectContact(ContactData contact)
+        public ContactHelper SelectContact()
         {
             driver.FindElement(By.Name("selected[]")).Click();
-            //driver.FindElement(By.Id(contact.Index)).Click();
             return this;
         }
         public ContactHelper RemoveContact()

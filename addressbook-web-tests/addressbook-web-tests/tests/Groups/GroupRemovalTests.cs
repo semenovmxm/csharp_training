@@ -15,12 +15,19 @@ namespace WebAddressbookTests
         {
             #region GroupDataRegion
             GroupData group = new GroupData();
-            group.Index = "1";
+            group.Index = "0";
             #endregion
 
+            List<GroupData> oldGroups = app.Groups.GetGroupList();
+            
             app.Groups.
                 IfExistAnyGroup(group).
-                Remove(group);            
+                Remove(group);
+
+            List<GroupData> newGroups = app.Groups.GetGroupList();
+
+            oldGroups.RemoveAt(int.Parse(group.Index));
+            Assert.AreEqual(oldGroups, newGroups);
         }
 
         

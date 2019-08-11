@@ -43,7 +43,10 @@ namespace WebAddressbookTests
             contact.Notes = "G1 " + DateTime.Now;
             #endregion
 
+            List<ContactData> oldContacts = app.Contacts.GetContactList();
             app.Contacts.Create(contact);
+            List<ContactData> newContacts = app.Contacts.GetContactList();
+            Assert.AreEqual(oldContacts.Count + 1, newContacts.Count);
         }
     }
 }

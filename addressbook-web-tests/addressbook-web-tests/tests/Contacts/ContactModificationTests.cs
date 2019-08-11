@@ -45,7 +45,7 @@ namespace WebAddressbookTests
             #endregion
 
             app.Contacts.
-                IfExistAnyContact(contact).
+                IfExistAnyContact().
                 Modify(contact);
         }
     }

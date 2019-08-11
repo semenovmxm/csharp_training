@@ -13,14 +13,16 @@ namespace WebAddressbookTests
         [Test]
         public void ContactRemovalTest()
         {
-            #region ContactDataRegion
-            ContactData contact = new ContactData();
-            contact.Index = "10";
-            #endregion
+            app.Contacts.IfExistAnyContact();
 
-            app.Contacts.
-                IfExistAnyContact(contact).
-                Remove(contact);
+            List<ContactData> oldContacts = app.Contacts.GetContactList();
+
+            app.Contacts.Remove();
+
+            List<ContactData> newContacts = app.Contacts.GetContactList();
+
+            oldContacts.RemoveAt(1);
+            Assert.AreEqual(oldContacts, newContacts);
         }
     }
 }
