@@ -14,18 +14,20 @@ namespace WebAddressbookTests
         public void GroupCreationTest()
         {
             #region GroupDataRegion
-            GroupData group = new GroupData();
-            group.Name = "G1 " + DateTime.Now;
-            group.Header = "H1 " + DateTime.Now;
-            group.Footer = "F1 " + DateTime.Now;
+            GroupData newData = new GroupData();
+            newData.Name = "G1 " + DateTime.Now;
+            newData.Header = "H1 " + DateTime.Now;
+            newData.Footer = "F1 " + DateTime.Now;
             #endregion
 
             List<GroupData> oldGroups = app.Groups.GetGroupList();
 
-            app.Groups.Create(group);
+            app.Groups.Create(newData);
+
+            Assert.AreEqual(oldGroups.Count +1, app.Groups.GetGroupCount());
 
             List<GroupData> newGroups = app.Groups.GetGroupList();
-            oldGroups.Add(group);
+            oldGroups.Add(newData);
             oldGroups.Sort();
             newGroups.Sort();
             Assert.AreEqual(oldGroups, newGroups);
@@ -35,18 +37,19 @@ namespace WebAddressbookTests
         public void EmptyGroupCreationTest()
         {
             #region GroupDataRegion
-            GroupData group = new GroupData();
-            group.Name = "";
-            group.Header = "";
-            group.Footer = "";
+            GroupData newData = new GroupData();
+            newData.Name = "";
+            newData.Header = "";
+            newData.Footer = "";
             #endregion
 
             List<GroupData> oldGroups = app.Groups.GetGroupList();
 
-            app.Groups.Create(group);
+            app.Groups.Create(newData);
+            Assert.AreEqual(oldGroups.Count + 1, app.Groups.GetGroupCount());
 
             List<GroupData> newGroups = app.Groups.GetGroupList();
-            oldGroups.Add(group);
+            oldGroups.Add(newData);
             oldGroups.Sort();
             newGroups.Sort();
             Assert.AreEqual(oldGroups, newGroups);
@@ -56,18 +59,19 @@ namespace WebAddressbookTests
         public void BadNameGroupCreationTest()
         {
             #region GroupDataRegion
-            GroupData group = new GroupData();
-            group.Name = "a'a";
-            group.Header = "";
-            group.Footer = "";
+            GroupData newData = new GroupData();
+            newData.Name = "a'a";
+            newData.Header = "";
+            newData.Footer = "";
             #endregion
 
             List<GroupData> oldGroups = app.Groups.GetGroupList();
 
-            app.Groups.Create(group);
+            app.Groups.Create(newData);
+            Assert.IsFalse(oldGroups.Count + 1 == app.Groups.GetGroupCount());
 
             List<GroupData> newGroups = app.Groups.GetGroupList();
-            oldGroups.Add(group);
+            oldGroups.Add(newData);
             oldGroups.Sort();
             newGroups.Sort();
             //Assert.AreEqual(oldGroups, newGroups);

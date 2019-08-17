@@ -14,23 +14,33 @@ namespace WebAddressbookTests
         public void ContactModificationTest()
         {
             #region ContactDataRegion
-            ContactData contact = new ContactData();
-            contact.Lastname = "llll" ;
-            contact.Middlename = "";// null; //"G1 " + DateTime.Now;
-            contact.Firstname = "";// null; //"G1 " + DateTime.Now;
+            ContactData newData = new ContactData();
+            newData.Lastname = "llll" ;
+            newData.Middlename = "";// null; //"G1 " + DateTime.Now;
+            newData.Firstname = "";// null; //"G1 " + DateTime.Now;
             #endregion
 
             app.Contacts.IfExistAnyContact();
 
             List<ContactData> oldContacts = app.Contacts.GetContactList();
+            ContactData oldData = oldContacts[0];
 
-            app.Contacts.Modify(contact);
+            app.Contacts.Modify(newData);
+            Assert.AreEqual(oldContacts.Count, app.Contacts.GetContactCount());
 
             List<ContactData> newContacts = app.Contacts.GetContactList();
-            oldContacts[1].Lastname = contact.Lastname;
+            oldContacts[0].Lastname = newData.Lastname;
             oldContacts.Sort();
             newContacts.Sort();
             Assert.AreEqual(oldContacts, newContacts);
+
+            foreach (ContactData contact in newContacts)
+            {
+                if (contact.Id == oldData.Id)
+                {
+                    Assert.AreEqual(newData.Lastname, contact.Lastname);
+                }
+            }
         }
     }
 }
