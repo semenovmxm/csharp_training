@@ -10,6 +10,7 @@ namespace WebAddressbookTests
     public class ContactData : IEquatable<ContactData>, IComparable<ContactData>
     {
         private string allPhones;
+        private string allEmails;
 
         public ContactData() { }
 
@@ -53,19 +54,30 @@ namespace WebAddressbookTests
             }
         }
 
-        private string CleanUp(string phone)
-        {
-            if(phone == null || phone == "")
-            {
-                return "";
-            }
-            return phone.Replace(" ", "").Replace("-", "").Replace("(", "").Replace(")", "") + "\r\n";
-        }
-
         public string Fax { get; set; }
         public string Email { get; set; }
         public string Email2 { get; set; }
         public string Email3 { get; set; }
+        public string AllEmails
+        {
+            get
+            {
+                if (allEmails != null)
+                {
+                    return allEmails;
+                }
+                else
+                {
+                    return (CleanUpEmails(Email) + CleanUpEmails(Email2) + CleanUpEmails(Email3)).Trim();
+                }
+            }
+            set
+            {
+                allEmails = value;
+            }
+        }
+
+
         public string Homepage { get; set; }
         public string Bday { get; set; }
         public string Bmonth { get; set; }
@@ -79,6 +91,24 @@ namespace WebAddressbookTests
         public string Phone2 { get; set; }
         public string Notes { get; set; }
         public string Id { get; set; }
+
+        private string CleanUp(string phone)
+        {
+            if (phone == null || phone == "")
+            {
+                return "";
+            }
+            return Regex.Replace(phone, "[ -()-]", "") + "\r\n";
+        }
+
+        private string CleanUpEmails(string email)
+        {
+            if (email == null || email == "")
+            {
+                return "";
+            }
+            return Regex.Replace(email, "[ ]", "") + "\r\n";
+        }
 
         public bool Equals(ContactData other)
         {

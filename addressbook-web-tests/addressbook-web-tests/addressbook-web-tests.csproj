@@ -71,6 +71,7 @@
     <Compile Include="tests\Contacts\ConactInformationTests.cs" />
     <Compile Include="tests\Contacts\ContactModificationTests.cs" />
     <Compile Include="tests\Contacts\ContactRemovalTests.cs" />
+    <Compile Include="tests\Contacts\SearchTests.cs" />
     <Compile Include="tests\Groups\GroupModificationTests.cs" />
     <Compile Include="tests\Groups\GroupRemovalTests.cs" />
     <Compile Include="appmanager\NavigationHelper.cs" />
