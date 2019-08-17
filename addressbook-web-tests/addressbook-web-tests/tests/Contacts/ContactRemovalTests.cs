@@ -22,14 +22,15 @@ namespace WebAddressbookTests
 
             //список контактов обновляется не сразу, поэтому ждем обновления
             int attempt = 0;
-            while (oldContacts.Count - 1 != app.Contacts.GetContactCount() 
-                && attempt < 30)
+            bool isUpdateContactCount = false;
+            while ( !isUpdateContactCount && attempt < 10000)
             {
-                System.Threading.Thread.Sleep(1000);
+                isUpdateContactCount = oldContacts.Count - 1 == app.Contacts.GetContactCount();
+                System.Threading.Thread.Sleep(2);
                 attempt++;
             }
 
-            Assert.AreEqual(oldContacts.Count - 1, app.Contacts.GetContactCount());
+            Assert.IsTrue(isUpdateContactCount);
 
             List<ContactData> newContacts = app.Contacts.GetContactList();
 
