@@ -10,46 +10,33 @@ namespace WebAddressbookTests
     [TestFixture]
     public class GroupCreationTests : AurhTestBase
     {
-        [Test]
-        public void GroupCreationTest()
+        public static IEnumerable<GroupData> RandomGroupDataProvider()
         {
-            #region GroupDataRegion
-            GroupData newData = new GroupData();
-            newData.Name = "G1 " + DateTime.Now;
-            newData.Header = "H1 " + DateTime.Now;
-            newData.Footer = "F1 " + DateTime.Now;
-            #endregion
+            List<GroupData> groups = new List<GroupData>();
 
+            for (int i = 0; i < 5; i++)
+            {
+                groups.Add(new GroupData(GenerateRandomString(30))
+                    {
+                    Header = GenerateRandomString(100), 
+                    Footer = GenerateRandomString(100)
+                });
+            }
+            return groups;
+        }
+
+        
+        [Test, TestCaseSource("RandomGroupDataProvider")]
+        public void GroupCreationTest(GroupData group)
+        {
             List<GroupData> oldGroups = app.Groups.GetGroupList();
 
-            app.Groups.Create(newData);
+            app.Groups.Create(group);
 
             Assert.AreEqual(oldGroups.Count +1, app.Groups.GetGroupCount());
 
             List<GroupData> newGroups = app.Groups.GetGroupList();
-            oldGroups.Add(newData);
-            oldGroups.Sort();
-            newGroups.Sort();
-            Assert.AreEqual(oldGroups, newGroups);
-        }
-
-        [Test]
-        public void EmptyGroupCreationTest()
-        {
-            #region GroupDataRegion
-            GroupData newData = new GroupData();
-            newData.Name = "";
-            newData.Header = "";
-            newData.Footer = "";
-            #endregion
-
-            List<GroupData> oldGroups = app.Groups.GetGroupList();
-
-            app.Groups.Create(newData);
-            Assert.AreEqual(oldGroups.Count + 1, app.Groups.GetGroupCount());
-
-            List<GroupData> newGroups = app.Groups.GetGroupList();
-            oldGroups.Add(newData);
+            oldGroups.Add(group);
             oldGroups.Sort();
             newGroups.Sort();
             Assert.AreEqual(oldGroups, newGroups);

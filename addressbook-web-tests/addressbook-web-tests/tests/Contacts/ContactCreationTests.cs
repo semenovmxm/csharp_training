@@ -10,17 +10,25 @@ namespace WebAddressbookTests
     [TestFixture]
     public class ContactCreationTests : AurhTestBase
     {
-        [Test]
-        public void ContactCreationTest()
+        public static IEnumerable<ContactData> RandomContactDataProvider()
         {
-            #region ContactDataRegion
-            ContactData contact = new ContactData();
-            contact.Firstname = "";
-            contact.Middlename = "";
-            contact.Lastname = "qqq";
+            List<ContactData> contacts = new List<ContactData>();
 
-            #endregion
+            for (int i = 0; i < 5; i++)
+            {
+                contacts.Add(new ContactData(GenerateRandomString(30))
+                {
+                    Firstname = GenerateRandomString(100),
+                    Lastname = GenerateRandomString(100)
+                });
+            }
+            return contacts;
+        }
 
+
+        [Test, TestCaseSource("RandomContactDataProvider")]
+        public void ContactCreationTest(ContactData contact)
+        {
             List<ContactData> oldContacts = app.Contacts.GetContactList();
 
             app.Contacts.Create(contact);
