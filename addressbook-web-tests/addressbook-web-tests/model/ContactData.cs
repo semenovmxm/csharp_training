@@ -11,6 +11,7 @@ namespace WebAddressbookTests
     {
         private string allPhones;
         private string allEmails;
+        private string contactDetails;
 
         public ContactData() { }
 
@@ -34,6 +35,7 @@ namespace WebAddressbookTests
         public string HomePhone { get; set; }
         public string MobilePhone { get; set; }
         public string WorkPhone { get; set; }
+
         public string AllPhones
         {
             get
@@ -58,6 +60,7 @@ namespace WebAddressbookTests
         public string Email { get; set; }
         public string Email2 { get; set; }
         public string Email3 { get; set; }
+
         public string AllEmails
         {
             get
@@ -77,7 +80,6 @@ namespace WebAddressbookTests
             }
         }
 
-
         public string Homepage { get; set; }
         public string Bday { get; set; }
         public string Bmonth { get; set; }
@@ -91,6 +93,63 @@ namespace WebAddressbookTests
         public string Phone2 { get; set; }
         public string Notes { get; set; }
         public string Id { get; set; }
+        public string ContactDetails
+        {
+            get
+            {
+                if (contactDetails != null)
+                {
+                    return contactDetails;
+                }
+                else
+                {
+                    return ContactDetailsTextConcatenate();
+                }
+
+            }
+            set
+            {
+                contactDetails = value;
+            }
+        }
+
+        private string ContactDetailsTextConcatenate()
+        {
+            return  System.String.Format(
+                @"{0} {2}
+
+H: {7}M: {8}W: {9}F: {10}
+{11}{12}{13}",
+
+            Firstname, //0
+            Middlename,//1
+            Lastname,//2
+            CleanUpContactDetails(Nickname),//3
+            CleanUpContactDetails(Title),//4
+            CleanUpContactDetails(Company),//5
+            CleanUpContactDetails(Address),//6
+            CleanUpContactDetails(HomePhone),//7
+            CleanUpContactDetails(MobilePhone),//8
+            CleanUpContactDetails(WorkPhone),//9
+            CleanUpContactDetails(Fax),//10
+            CleanUpContactDetails(Email),//11
+            CleanUpContactDetails(Email2),//12
+            CleanUpContactDetails(Email3),//13
+            CleanUpContactDetails(Homepage),//14
+            Bday,//15
+            Bmonth,//16
+            Byear,//17
+            Aday,//18
+            Amonth,//19
+            CleanUpContactDetails(Ayear),//20
+            CleanUpContactDetails(Address2),//21
+            CleanUpContactDetails(Phone2),//22
+            CleanUpContactDetails(Notes)//23
+                ).Trim();
+            //Homepage:       {14}
+            //Birthday {15}. {16} {17}
+            //Anniversary {18}. {19} {20}
+        }
 
         private string CleanUp(string phone)
         {
@@ -109,7 +168,15 @@ namespace WebAddressbookTests
             }
             return Regex.Replace(email, "[ ]", "") + "\r\n";
         }
-
+        private string CleanUpContactDetails(string contactDetails)
+        {
+            if (contactDetails == null || contactDetails == "")
+            {
+                return "";
+            }
+            return contactDetails + "\r\n";
+        }
+        
         public bool Equals(ContactData other)
         {
             if (Object.ReferenceEquals(other, null))

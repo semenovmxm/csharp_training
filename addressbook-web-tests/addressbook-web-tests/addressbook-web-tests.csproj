@@ -69,6 +69,7 @@
     <Compile Include="model\GroupData.cs" />
     <Compile Include="tests\AurhTestBase.cs" />
     <Compile Include="tests\Contacts\ConactInformationTests.cs" />
+    <Compile Include="tests\Contacts\ConactDetailsTests.cs" />
     <Compile Include="tests\Contacts\ContactModificationTests.cs" />
     <Compile Include="tests\Contacts\ContactRemovalTests.cs" />
     <Compile Include="tests\Contacts\SearchTests.cs" />
