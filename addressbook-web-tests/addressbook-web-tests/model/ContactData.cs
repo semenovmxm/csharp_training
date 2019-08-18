@@ -197,9 +197,9 @@ H: {7}M: {8}W: {9}F: {10}
 
         public override string ToString()
         {
-            return "lastname=" + Lastname;
+            return "lastname=" + Lastname + "\nfirstName= " + Firstname;
         }
-
+        
         public int CompareTo(ContactData other)
         {
             if (Object.ReferenceEquals(other, null))
