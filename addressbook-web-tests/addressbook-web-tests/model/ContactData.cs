@@ -19,6 +19,7 @@ namespace WebAddressbookTests
         {
             this.Lastname = lastname;
         }
+
         public ContactData(string firstName, string lastname)
         {
             this.Firstname = firstName;
