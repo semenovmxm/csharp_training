@@ -37,6 +37,14 @@ namespace WebAddressbookTests
             {
                 driver.FindElement(By.LinkText("Logout")).Click();
             }
+
+            //Ждем обновления страницы после разлогирования
+            int attempt = 0;
+            while (IsloggedIn() && attempt < 10000)
+            {
+                System.Threading.Thread.Sleep(2);
+                attempt++;
+            }
         }
 
         public bool IsloggedIn()
