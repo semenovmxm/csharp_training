@@ -5,6 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using NUnit.Framework;
 using System.IO;
+using System.Xml;
+using System.Xml.Serialization;
+using Newtonsoft.Json;
 
 namespace WebAddressbookTests
 {
@@ -26,7 +29,7 @@ namespace WebAddressbookTests
             return groups;
         }
 
-        public static IEnumerable<GroupData> GroupDataFromFile()
+        public static IEnumerable<GroupData> GroupDataFromCsvFile()
         {
             List<GroupData> groups = new List<GroupData>();
 
@@ -44,8 +47,20 @@ namespace WebAddressbookTests
             return groups;
         }
 
+        public static IEnumerable<GroupData> GroupDataFromXmlFile()
+        {
+           return (List<GroupData>)
+                new XmlSerializer(typeof(List<GroupData>))
+                .Deserialize(new StreamReader(@"groups.xml"));
+        }
 
-        [Test, TestCaseSource("GroupDataFromFile")]
+        public static IEnumerable<GroupData> GroupDataFromJsonFile()
+        {
+            return JsonConvert.DeserializeObject<List<GroupData>>(
+                File.ReadAllText(@"groups.json"));
+        }
+
+        [Test, TestCaseSource("GroupDataFromJsonFile")]
         public void GroupCreationTest(GroupData group)
         {
             List<GroupData> oldGroups = app.Groups.GetGroupList();
