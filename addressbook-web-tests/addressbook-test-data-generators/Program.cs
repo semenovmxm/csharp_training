@@ -16,9 +16,19 @@ namespace addressbook_test_data_generators
     {
         static void Main(string[] args)
         {
-            Groups_test_data_generators(args);
-            Contacts_test_data_generators(args);
-
+            string filename = args[1];
+            if (filename.Contains("groups"))
+            {
+                Groups_test_data_generators(args);
+            }
+            else if (filename.Contains("contacts"))
+            {
+                Contacts_test_data_generators(args);
+            }           
+            else
+            {
+                System.Console.Out.Write("Unrecognized format of data name in " + filename);
+            }
         }
 
         static void Contacts_test_data_generators(string[] args)
