@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfContactData xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ContactData>
+    <Firstname>(#P</Firstname>
+    <Lastname>4 </Lastname>
+    <AllPhones />
+    <AllEmails />
+    <ContactDetails>(#P 4 
+
+H: M: W: F:</ContactDetails>
+  </ContactData>
+  <ContactData>
+    <Firstname>!</Firstname>
+    <Lastname>D</Lastname>
+    <AllPhones />
+    <AllEmails />
+    <ContactDetails>! D
+
+H: M: W: F:</ContactDetails>
+  </ContactData>
+</ArrayOfContactData>
