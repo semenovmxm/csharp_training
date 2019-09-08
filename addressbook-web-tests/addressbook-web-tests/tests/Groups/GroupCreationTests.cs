@@ -126,5 +126,21 @@ namespace WebAddressbookTests
             //verification
             Assert.IsFalse(oldGroups == newGroups);
         }
+
+        [Test]
+        public void TestDBConnectivity()
+        {
+            DateTime start = DateTime.Now;
+            List<GroupData> fromUi = app.Groups.GetGroupList();
+            DateTime end = DateTime.Now;
+            System.Console.Out.WriteLine("Длительность fromUi: " + end.Subtract(start));
+
+            start = DateTime.Now;
+            List<GroupData> fromDb = GroupData.GetAll();
+            end = DateTime.Now;
+            System.Console.Out.WriteLine("Длительность fromDb: " + end.Subtract(start));
+        }
+
+       
     }
 }
