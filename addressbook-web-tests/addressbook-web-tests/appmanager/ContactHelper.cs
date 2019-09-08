@@ -28,7 +28,7 @@ namespace WebAddressbookTests
         public ContactHelper Modify(ContactData contact)
         {
             manager.Navigator.GoToHomePage();
-            GoToContactsDetailsPage();
+            GoToContactsDetailsPage(contact);
             InitContactModification();
             FillModificationContactForm(contact);
             SubmitContactModification();
@@ -49,10 +49,10 @@ namespace WebAddressbookTests
             return this;
         }
 
-        public ContactHelper Remove()
+        public ContactHelper Remove(ContactData contact)
         {
             manager.Navigator.GoToHomePage();
-            SelectContact();
+            SelectContact(contact.Id);
             RemoveContact();
             CloseAlert();
             return this;
@@ -64,6 +64,11 @@ namespace WebAddressbookTests
             return this;
         }
 
+        public ContactHelper GoToContactsDetailsPage(ContactData contact)
+        {
+            driver.FindElement(By.XPath("(//a[@href='view.php?id=" + contact.Id + "'])")).Click();
+            return this;
+        }
         public List<ContactData> contactCashe = null;
         public List<ContactData> GetContactList()
         {
@@ -101,6 +106,11 @@ namespace WebAddressbookTests
             driver.FindElements(By.Name("entry"))[index]
                 .FindElements(By.TagName("td"))[7]
                 .FindElement(By.TagName("a")).Click();
+        }
+
+        public void InitContactModification(ContactData contact)
+        {
+           driver.FindElement(By.XPath("(//a[@href='edit.php?id="+contact.Id+"'])")).Click();
         }
 
         public void InitContactDetails(int index)
@@ -158,6 +168,13 @@ namespace WebAddressbookTests
             driver.FindElement(By.Name("selected[]")).Click();
             return this;
         }
+
+        public ContactHelper SelectContact(string id)
+        {
+            driver.FindElement(By.Id(id)).Click();
+            return this;
+        }
+
         public ContactHelper RemoveContact()
         {
             driver.FindElement(By.XPath("(//input[@value='Delete'])")).Click();

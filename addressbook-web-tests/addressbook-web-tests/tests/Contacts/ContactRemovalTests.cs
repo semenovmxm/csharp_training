@@ -8,17 +8,17 @@ using NUnit.Framework;
 namespace WebAddressbookTests
 {
     [TestFixture]
-    public class ContactRemovalTests : AurhTestBase
+    public class ContactRemovalTests : AuthTestBase
     {
         [Test]
         public void ContactRemovalTest()
         {
             app.Contacts.IfExistAnyContact();
 
-            List<ContactData> oldContacts = app.Contacts.GetContactList();
+            List<ContactData> oldContacts = ContactData.GetAll();
             ContactData toBeRemoved = oldContacts[0];
 
-            app.Contacts.Remove();
+            app.Contacts.Remove(toBeRemoved);
 
             //список контактов обновляется не сразу, поэтому ждем обновления
             int attempt = 0;
@@ -32,7 +32,7 @@ namespace WebAddressbookTests
 
             Assert.IsTrue(isUpdateContactCount);
 
-            List<ContactData> newContacts = app.Contacts.GetContactList();
+            List<ContactData> newContacts = ContactData.GetAll();
 
             oldContacts.RemoveAt(0);
             oldContacts.Sort();

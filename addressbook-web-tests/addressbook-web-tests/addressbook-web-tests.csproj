@@ -100,7 +100,9 @@
     <Compile Include="model\AddressBookDB.cs" />
     <Compile Include="model\ContactData.cs" />
     <Compile Include="model\GroupData.cs" />
-    <Compile Include="tests\AurhTestBase.cs" />
+    <Compile Include="tests\ContactTestBase.cs" />
+    <Compile Include="tests\GroupTestBase.cs" />
+    <Compile Include="tests\AuthTestBase.cs" />
     <Compile Include="tests\Contacts\ConactInformationTests.cs" />
     <Compile Include="tests\Contacts\ConactDetailsTests.cs" />
     <Compile Include="tests\Contacts\ContactModificationTests.cs" />
