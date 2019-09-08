@@ -99,6 +99,7 @@
     <Compile Include="appmanager\LoginHelper.cs" />
     <Compile Include="model\AddressBookDB.cs" />
     <Compile Include="model\ContactData.cs" />
+    <Compile Include="model\GroupContactRelation.cs" />
     <Compile Include="model\GroupData.cs" />
     <Compile Include="tests\ContactTestBase.cs" />
     <Compile Include="tests\GroupTestBase.cs" />

@@ -28,13 +28,16 @@ namespace WebAddressbookTests
             this.Lastname = lastname;
         }
 
+        [Column(Name = "id"), PrimaryKey, Identity]
+        public string Id { get; set; }
+
         [Column(Name = "firstname")]
         public string Firstname { get; set; }
 
-        public string Middlename { get; set; }
-
         [Column(Name = "lastname")]
         public string Lastname { get; set; }
+
+        public string Middlename { get; set; }        
 
         public string Nickname { get; set; }
         public string Title { get; set; }
@@ -101,8 +104,7 @@ namespace WebAddressbookTests
         public string Phone2 { get; set; }
         public string Notes { get; set; }
 
-        [Column(Name = "id"), PrimaryKey, Identity]
-        public string Id { get; set; }
+        
 
         public string ContactDetails
         {
