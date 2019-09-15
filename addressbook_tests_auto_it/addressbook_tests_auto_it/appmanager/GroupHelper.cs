@@ -10,18 +10,19 @@ namespace addressbook_tests_auto_it
     public class GroupHelper : HelperBase
     {
         public static string GROUPWINTITLE = "Group editor";
+        public static string DELETEGROUPWINTITLE = "Delete group";
+
         public  GroupHelper(ApplicationManager manager) : base(manager) { }
 
         public List<GroupData> GetGroupList()
         {
             List<GroupData> list = new List<GroupData>();
             OpenGroupsDialogue();
-
-            string count = aux.ControlTreeView(GROUPWINTITLE, "", "WindowsForms10.SysTreeView32.app.0.2c908d51", "GetItemCount", "#0", "");
+            string count = GetCount();
 
             for (int i = 0; i < int.Parse(count); i++)
             {
-                string item = aux.ControlTreeView(GROUPWINTITLE, "", "WindowsForms10.SysTreeView32.app.0.2c908d51", "GetText", "#0|#"+i, "");
+                string item = aux.ControlTreeView(GROUPWINTITLE, "", "WindowsForms10.SysTreeView32.app.0.2c908d51", "GetText", "#0|#" + i, "");
                 list.Add(new GroupData()
                 {
                     Name = item
@@ -30,6 +31,43 @@ namespace addressbook_tests_auto_it
 
             CloseGroupsDialogue();
             return list;
+        }
+
+        public void Remove(int index)
+        {
+            OpenGroupsDialogue();
+            SelectGroup(index);
+            RemoveGroup();
+            ConfirmToRemoveGroup();
+            CloseGroupsDialogue();
+        }
+
+        public void ConfirmToRemoveGroup()
+        {
+            aux.ControlClick(DELETEGROUPWINTITLE, "", "WindowsForms10.BUTTON.app.0.2c908d53");
+        }
+        public void RemoveGroup()
+        {
+            aux.ControlClick(GROUPWINTITLE, "", "WindowsForms10.BUTTON.app.0.2c908d51");
+        }
+
+        public void SelectGroup(int index)
+        {
+            aux.ControlTreeView(GROUPWINTITLE, "", "WindowsForms10.SysTreeView32.app.0.2c908d51", "Select", "#0|#"+ index.ToString(), "");
+        }
+
+        public string GetGroupCount()
+        {
+            OpenGroupsDialogue();
+            string count = GetCount();
+            CloseGroupsDialogue();
+            return count;
+        }
+
+        public string GetCount()
+        {
+
+            return aux.ControlTreeView(GROUPWINTITLE, "", "WindowsForms10.SysTreeView32.app.0.2c908d51", "GetItemCount", "#0", "");
         }
 
         public void Add(GroupData newGroup)
