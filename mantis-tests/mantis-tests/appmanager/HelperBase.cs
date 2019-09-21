@@ -32,7 +32,7 @@ namespace mantis_tests
 
         public bool IsExistRecords()
         {
-            return IsElementPresent(By.Name("selected[]"));
+            return IsElementPresent(By.XPath("//td/a"));
         }
 
         public bool IsElementPresent(By by)

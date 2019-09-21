@@ -16,7 +16,7 @@ namespace mantis_tests
         public void SetupApplicationManager()
         {
             app = ApplicationManager.GetInstance();
-           
+
         }
 
         public static Random rnd = new Random();
