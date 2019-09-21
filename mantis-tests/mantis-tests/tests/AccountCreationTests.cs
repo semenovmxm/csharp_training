@@ -9,13 +9,15 @@ namespace mantis_tests
     [TestFixture]
     public class AccountCreationTests : TestBase
     {
+        private const string ConfigPath = "/config_inc.php"; //"/config/config_inc.php";
+
         [TestFixtureSetUp]
         public void setUpConfig()
         {
-            app.Ftp.BackUpFile("/config/config_inc.php");
-            using (Stream localFile = File.Open("/config/config_inc.php", FileMode.Open))
+            app.Ftp.BackUpFile(ConfigPath);
+            using (Stream localFile = File.Open("config_inc.php", FileMode.Open))
             {
-                app.Ftp.Upload("/config/config_inc.php", localFile);
+                app.Ftp.Upload(ConfigPath, localFile);
             }
             
         }
@@ -23,12 +25,15 @@ namespace mantis_tests
         [Test]
         public void TestAccountRegistration()
         {
-            AccountData account = new AccountData()
-            {
-                Name = "testuser",
-                Password = "password",
-                Email = "testuser@localhost.localdomain"
-            };
+            DateTime now = DateTime.Now;
+            AccountData account = new AccountData();
+
+            account.Name = "testuser"+ now.ToString("hhmmssddMMyyyy");
+            account.Password = "password";
+            account.Email = account.Name +"@localhost.localdomain";
+
+            app.James.Delete(account);
+            app.James.Add(account);
 
             app.Registration.Register(account);
 
@@ -38,7 +43,7 @@ namespace mantis_tests
         [TestFixtureTearDown]
         public void restoreConfig()
         {
-            app.Ftp.RestoreBackUpFile("/config/config_inc.php");
+            app.Ftp.RestoreBackUpFile(ConfigPath);
         }
     }
 }
