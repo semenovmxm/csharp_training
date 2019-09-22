@@ -15,7 +15,7 @@ namespace mantis_tests
 
         public string GetLastMail(AccountData account)
         {  
-            for (int i = 0; i < 20; i++)
+            for (int i = 0; i < 2; i++)
             {
                 Pop3Client pop3 = new Pop3Client("localhost", 110, account.Name, account.Password, false);
                 pop3.Connect();
@@ -23,18 +23,19 @@ namespace mantis_tests
                 pop3.Authenticate();
 
                 //Ждем завершения аутентификации
-                int attempt = 0;
-                while (!pop3.IsAuthenticated && attempt < 100)
-                {
-                    System.Threading.Thread.Sleep(100);
-                    attempt++;
-                }
+                ////int attempt = 0;
+                ////while (!pop3.IsAuthenticated && attempt < 100)
+                ////{
+                ////    System.Threading.Thread.Sleep(100);
+                ////    attempt++;
+                ////}
 
                 if (pop3.GetMessageCount() > 0)
                 {
                     ReadOnlyMailMessage message = pop3.GetMessage(1);
                     string body = message.Body;
                     pop3.DeleteMessage(1);
+                    pop3.LogOut();
                     return body;
                 }
                 else

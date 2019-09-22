@@ -27,6 +27,13 @@ namespace mantis_tests
             SubmitPasswordForm();
         }
 
+        public void DeleteAccount(AccountData account)
+        {
+            driver.Url = "http://localhost/mantisbt-2.22.0/manage_user_edit_page.php?user_id=" + account.Id;
+            driver.FindElement(By.CssSelector("form[id='manage-user-delete-form']")).Click();
+            driver.FindElement(By.CssSelector("input.btn")).Click();
+        }
+
         private string GetConfirmationUrl(AccountData account)
         {
             string message = manager.Mail.GetLastMail(account);
@@ -67,7 +74,7 @@ namespace mantis_tests
 
         private void OpenMainPage()
         {
-            manager.Driver.Url = "http://localhost/mantisbt-2.22.0/login_page.php"; 
+            manager.Driver.Url = "http://localhost/mantisbt-2.22.0"; 
         }
     }
 }
