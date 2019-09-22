@@ -19,5 +19,29 @@ namespace mantis_tests
             app.Project.RemoveProject(1);
         }
 
+        [Test]
+        public void ProjectRemoveTestApiVerify()
+        {
+            app.API.IsExistAnyProject();
+
+            
+            var oldProjects = app.API.GetAll();
+            var toBeRemoved = oldProjects[0];
+
+            app.Project.RemoveProject(1);
+
+            Assert.AreEqual(oldProjects.Count - 1, app.API.GetProjectCount());
+
+            var newProjects = app.API.GetAll();
+
+            oldProjects.RemoveAt(0);
+            Assert.AreEqual(oldProjects, newProjects);
+
+            foreach (var project in newProjects)
+            {
+                Assert.AreNotEqual(project.Id, toBeRemoved.Id);
+            }
+        }
+
     }
 }

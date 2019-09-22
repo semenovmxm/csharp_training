@@ -23,7 +23,8 @@ namespace mantis_tests
             GoToProjectModificationPage(index);
             SubmitProjectRemoveing();
             ConfirmProjectRemoving();
-        }
+        }        
+
         public void IfExistAnyProject()
         {
             manager.ManagementMenu.GoToManagementProjectPage();

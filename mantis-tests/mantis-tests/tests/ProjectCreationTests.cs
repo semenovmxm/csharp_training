@@ -19,8 +19,24 @@ namespace mantis_tests
             ProjectData project = new ProjectData();
             project.Name = "testproject" + now.ToString("hhmmssddMMyyyy");
 
+
+
+
+            var oldProjects = app.API.GetAll();
+
             app.Project.CreateProject(project);
+
+            var newProjects = app.API.GetAll();
+            int num = newProjects.Count - 1;
+
+            Assert.AreEqual(oldProjects.Count + 1, newProjects.Count);
+            project.Id = newProjects[num].Id;
+            oldProjects.Add(project);
+            oldProjects.Sort();
+            newProjects.Sort();
+
+            Assert.AreEqual(oldProjects, newProjects);
         }
 
-    }
+}
 }
