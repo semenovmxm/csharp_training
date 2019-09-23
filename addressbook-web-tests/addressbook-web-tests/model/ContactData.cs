@@ -203,7 +203,10 @@ H: {7}M: {8}W: {9}F: {10}
             {
                 return true;
             }
-            return Lastname == other.Lastname;
+            bool equalsFN = (Firstname == other.Firstname);
+            bool equalsLN = (Lastname == other.Lastname);
+              bool result = equalsFN & equalsLN;
+            return result;
         }
 
         public override int GetHashCode()

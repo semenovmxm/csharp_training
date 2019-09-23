@@ -70,7 +70,7 @@ namespace WebAddressbookTests
             return this;
         }
         public List<ContactData> contactCashe = null;
-        public List<ContactData> GetContactList()
+        public List<ContactData> GetContactList_Old()
         {
             if(contactCashe == null)
             {
@@ -89,6 +89,34 @@ namespace WebAddressbookTests
             }
             return new List<ContactData>(contactCashe);
         }
+
+
+        public List<ContactData> GetContactList()
+        {
+            if (contactCashe == null)
+            {
+                contactCashe = new List<ContactData>();
+                manager.Navigator.GoToHomePage();
+                ICollection<IWebElement> elements = driver.FindElements(By.Name("entry"));
+                foreach (IWebElement element in elements)
+                {
+                    IList<IWebElement> cells = element.FindElements(By.TagName("td"));
+                    string lastName = cells[1].Text;
+                    string firstName = cells[2].Text;
+                    string address = cells[3].Text;
+                    string allEmails = cells[4].Text;
+                    string allPhones = cells[5].Text;
+                    ContactData contact = new ContactData(firstName, lastName)
+                    {
+                        Id = element.FindElement(By.TagName("input")).GetAttribute("value")
+                    };
+                    contactCashe.Add(contact);
+                }
+                //contactCashe.RemoveAt(0);
+            }
+            return new List<ContactData>(contactCashe);
+        }
+       
 
         public int GetContactCount()
         {
