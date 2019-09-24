@@ -23,6 +23,14 @@ namespace WebAddressbookTests
             SubmitContactCreation();
             ReturnHomePage();
             return this;
+        }        
+
+        public ContactHelper IfExistAnyContactInAnyGroup()
+        {
+            
+            manager.Groups.IfExistAnyGroup();
+            IfExistAnyContact();
+            return this;
         }
 
         public ContactHelper Modify(ContactData contact)
@@ -90,7 +98,6 @@ namespace WebAddressbookTests
             return new List<ContactData>(contactCashe);
         }
 
-
         public List<ContactData> GetContactList()
         {
             if (contactCashe == null)
@@ -116,7 +123,22 @@ namespace WebAddressbookTests
             }
             return new List<ContactData>(contactCashe);
         }
-       
+
+        public ContactData FindContactForGroup(List<ContactData> contactList)
+        {
+            ContactData contact = ContactData.GetAll().Except(contactList).First();
+            
+            if (contact == null)
+            {
+                contact.Lastname = "";
+
+                Create(contact);
+
+                contact = ContactData.GetAll().Except(contactList).First();
+            }
+           
+            return contact;
+        }
 
         public int GetContactCount()
         {

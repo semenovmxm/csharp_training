@@ -24,6 +24,17 @@ namespace WebAddressbookTests
             return this;
         }
 
+        public List<ContactData> NoEmptyContactsList(GroupData group)
+        {
+            List<ContactData> contactsList = group.GetContacts();
+            if (contactsList.Count == 0)
+            {
+                ContactData contact = manager.Contacts.FindContactForGroup(contactsList);
+                manager.Contacts.AddContactToGroup(contact, group);
+            }
+            return contactsList;
+        }
+
         private List<GroupData> groupCashe = null;
 
         public List<GroupData> GetGroupList()
@@ -162,6 +173,20 @@ namespace WebAddressbookTests
         {
             driver.FindElement(By.LinkText("group page")).Click();
             return this;
+        }
+
+        public GroupData FindGroup()
+        {
+            List<GroupData> groups = GroupData.GetAll();
+            GroupData group = new GroupData();
+            if (groups.Count == 0)
+            {               
+                group.Name = "";
+                Create(group);
+                groups = GroupData.GetAll();
+            }
+            group = groups[0];
+            return group;
         }
     }
 }
