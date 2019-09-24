@@ -225,7 +225,18 @@ H: {7}M: {8}W: {9}F: {10}
             {
                 return 1;
             }
-            return Lastname.CompareTo(other.Lastname);
+            else
+            {
+                int compareLN = Lastname.CompareTo(other.Lastname);
+
+                if (0 == compareLN)
+                {
+                    int compareFN = Firstname.CompareTo(other.Firstname);
+                    return compareFN;
+                }
+                return compareLN;
+            }
+           
         }
 
         public static List<ContactData> GetAll()
