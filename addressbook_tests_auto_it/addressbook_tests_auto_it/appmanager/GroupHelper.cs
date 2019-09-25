@@ -45,15 +45,17 @@ namespace addressbook_tests_auto_it
         public void ConfirmToRemoveGroup()
         {
             aux.ControlClick(DELETEGROUPWINTITLE, "", "WindowsForms10.BUTTON.app.0.2c908d53");
+            aux.WinWait(GROUPWINTITLE);
         }
         public void RemoveGroup()
         {
             aux.ControlClick(GROUPWINTITLE, "", "WindowsForms10.BUTTON.app.0.2c908d51");
+            aux.WinWait(DELETEGROUPWINTITLE);
         }
 
         public void SelectGroup(int index)
         {
-            aux.ControlTreeView(GROUPWINTITLE, "", "WindowsForms10.SysTreeView32.app.0.2c908d51", "Select", "#0|#"+ index.ToString(), "");
+            aux.ControlTreeView(GROUPWINTITLE, "", "WindowsForms10.SysTreeView32.app.0.2c908d51", "Select", "#0|#"+ index.ToString(), "");            
         }
 
         public string GetGroupCount()
@@ -76,12 +78,15 @@ namespace addressbook_tests_auto_it
             aux.ControlClick(GROUPWINTITLE, "", "WindowsForms10.BUTTON.app.0.2c908d53");
             aux.Send(newGroup.Name);
             aux.Send("{ENTER}");
+            aux.Sleep(2);
+
             CloseGroupsDialogue();
         }
 
         public void CloseGroupsDialogue()
         {
             aux.ControlClick(GROUPWINTITLE, "", "WindowsForms10.BUTTON.app.0.2c908d54");
+            aux.WinWait(WINTITLE);
         }
 
         public void OpenGroupsDialogue()

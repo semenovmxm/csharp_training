@@ -22,6 +22,7 @@ namespace addressbook_tests_auto_it
             aux.WinWait(WINTITLE);
             aux.WinActivate(WINTITLE);
             aux.WinActive(WINTITLE);
+            aux.Sleep(1000);
         }
 
         public void Stop()
