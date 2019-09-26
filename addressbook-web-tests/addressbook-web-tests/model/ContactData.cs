@@ -69,7 +69,7 @@ namespace WebAddressbookTests
                 allPhones = value;
             }
         }
-
+ 
         public string Fax { get; set; }
         public string Email { get; set; }
         public string Email2 { get; set; }
@@ -107,7 +107,6 @@ namespace WebAddressbookTests
         public string Phone2 { get; set; }
         public string Notes { get; set; }
 
-        
 
         public string ContactDetails
         {
@@ -129,39 +128,46 @@ namespace WebAddressbookTests
             }
         }
 
-        private string ContactDetailsTextConcatenate()
+        public string ContactDetailsTextConcatenate()
         {
-            return  System.String.Format(
-                @"{0} {2}
 
-H: {7}M: {8}W: {9}F: {10}
-{11}{12}{13}",
+            return
 
-            Firstname, //0
-            Middlename,//1
-            Lastname,//2
-            CleanUpContactDetails(Nickname),//3
-            CleanUpContactDetails(Title),//4
-            CleanUpContactDetails(Company),//5
-            CleanUpContactDetails(Address),//6
-            CleanUpContactDetails(HomePhone),//7
-            CleanUpContactDetails(MobilePhone),//8
-            CleanUpContactDetails(WorkPhone),//9
-            CleanUpContactDetails(Fax),//10
-            CleanUpContactDetails(Email),//11
-            CleanUpContactDetails(Email2),//12
-            CleanUpContactDetails(Email3),//13
-            CleanUpContactDetails(Homepage),//14
-            Bday,//15
-            Bmonth,//16
-            Byear,//17
-            Aday,//18
-            Amonth,//19
-            CleanUpContactDetails(Ayear),//20
-            CleanUpContactDetails(Address2),//21
-            CleanUpContactDetails(Phone2),//22
-            CleanUpContactDetails(Notes)//23
-                ).Trim();
+            (Firstname == "" ? ("") : (Firstname + " ")) +
+            (Middlename == "" ? ("") : (Middlename + " ")) +
+            (Lastname == "" ? ("") : (Lastname)) +
+            ((Nickname + Title + Company + Address) == "" ? ("") : ("\r\n" + CleanUpContactDetails(Nickname) +
+            CleanUpContactDetails(Title) +
+            CleanUpContactDetails(Company) +
+            CleanUpContactDetails(Address))) +             
+       
+            (Clean(HomePhone) == "" ? ("") : ("\r\n" + "H: " + Clean(HomePhone) + "\r\n")) +
+            (Clean(MobilePhone) == "" ? ("") : ("M: " + Clean(MobilePhone) + "\r\n")) +
+            (Clean(WorkPhone) == "" ? ("") : ("W: " + Clean(WorkPhone) + "\r\n")) +
+            (Clean(Fax) == "" ? ("") : ("F: " + Clean(Fax) + " "))+
+            ((Email + Email2 + Email3 ) == "" ? ("") : ("\r\n\r\n" + AllEmails))
+            ;
+
+            
+                        
+            //CleanUpContactDetails(HomePhone),//7
+            //CleanUpContactDetails(MobilePhone),//8
+            //CleanUpContactDetails(WorkPhone),//9
+            //CleanUpContactDetails(Fax),//10
+            //CleanUpContactDetails(Email),//11
+            //CleanUpContactDetails(Email2),//12
+            //CleanUpContactDetails(Email3),//13
+            //CleanUpContactDetails(Homepage),//14
+            //Bday,//15
+            //Bmonth,//16
+            //Byear,//17
+            //Aday,//18
+            //Amonth,//19
+            //CleanUpContactDetails(Ayear),//20
+            //CleanUpContactDetails(Address2),//21
+            //CleanUpContactDetails(Phone2),//22
+            //CleanUpContactDetails(Notes)//23
+            //    ).Trim();
             //Homepage:       {14}
             //Birthday {15}. {16} {17}
             //Anniversary {18}. {19} {20}
@@ -174,6 +180,15 @@ H: {7}M: {8}W: {9}F: {10}
                 return "";
             }
             return Regex.Replace(phone, "[ -()-]", "") + "\r\n";
+        }
+
+        private string Clean(string phone)
+        {
+            if (phone == null || phone == "")
+            {
+                return "";
+            }
+            return Regex.Replace(phone, "[ -()-]", "");
         }
 
         private string CleanUpEmails(string email)

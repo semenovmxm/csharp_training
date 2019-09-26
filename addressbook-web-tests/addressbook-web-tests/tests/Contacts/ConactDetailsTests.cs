@@ -18,8 +18,11 @@ namespace WebAddressbookTests
             ContactData fromForm = app.Contacts.GetContactInformationFromEditForm(0);
 
             // verification
-           
-            Assert.AreEqual(fromDetails.ContactDetails, fromForm.ContactDetails);
+            var fd = fromDetails.ContactDetails;
+            var ff = fromForm.ContactDetails;
+
+
+            Assert.AreEqual(fd, ff);
         }
     }
 }
